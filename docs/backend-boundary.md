@@ -1,7 +1,6 @@
 # Backend Boundary
 
 > 这个后端做什么、不做什么、和前端怎么对接。
-> 写这份文档的目的:让任何人(包括未来的我、面试官)在 5 分钟内判断这个项目的工程边界是否想清楚了。
 
 ## 做什么
 
@@ -29,23 +28,19 @@ page-store-fullstack 的后端为以下 3 个前端页面提供服务端能力:
 - ❌ **消息队列 / 异步任务**。所有请求同步返回
 - ❌ **审计日志 / 数据版本**。`PageConfig` 没有历史版本
 
-**这不是"做不到",是"故意不做"**。范围一旦扩,10 周做不完;10 周做不完,这个项目就废了。
+范围一旦扩,10 周做不完。
 
-## 与 vue-page-store 的契约耦合点
+## 与前端的契约耦合点
 
 后端不是凭空设计的,它的契约形态由前端 page-store 的状态机倒推而来。耦合点有四:
 
-1. **Loading 三态对齐**:响应外壳的 `code` 字段直接驱动前端 `$startLoading` / `$endLoading` / `$setError` 的分流,详见 `docs/api-contract.md` 的"统一响应结构"。
+1. **Loading 三态对齐**:响应外壳的 `code` 字段直接驱动前端 `$startLoading` / `$endLoading` / `$setError` 的分流,详见 `docs/api-contract.md`。
 2. **Error 收敛**:HTTP 4xx/5xx 只用于传输层异常,业务失败一律 200 + 非零 `code`,前端 axios 拦截器不必区分两种错误源。
-3. **分页字段冗余**:`hasMore` / 回显的 `page` / `pageSize` 都是为了让 page-store 的列表 state 自描述,详见"分页契约"。
+3. **分页字段冗余**:`hasMore` / 回显的 `page` / `pageSize` 都是为了让 page-store 的列表 state 自描述。
 4. **配置驱动**:`PageConfig.configJson` 字段下发的 JSON 结构与前端 `ai-constrained-page` 的配置 schema 1:1 对齐(具体 schema 在 W4 展开)。
 
 ## 这个项目不是什么
 
-为了避免对外措辞失焦,以下定位**主动否认**:
-
 - **不是 BFF**。BFF 假设上游有多个微服务需要聚合,本项目没有上游,它是单一服务端。
 - **不是生产级后端**。SQLite 单机起步,可选迁移 MySQL,但不会引入 K8s / 微服务 / 服务网格 / 消息中间件。
 - **不是后端转型作品**。我是前端架构方向工程师,这个项目是为了让前端架构作品形成闭环,不是简历切换跑道的信号。
-
-**对外措辞统一**:「前端架构作品的服务端闭环」。
