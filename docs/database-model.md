@@ -1,0 +1,1 @@
+Event.type 暂用 String,枚举值在 seed 里硬编码:login / page_view / config_change

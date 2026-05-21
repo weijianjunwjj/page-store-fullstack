@@ -12,6 +12,7 @@ model User {
   username  String   @unique
   password  String   // 明文占位,W5 替换为 bcrypt hash
   createdAt DateTime @default(now())
+  events Event[]
   pageConfigs PageConfig[]
 }
 
@@ -25,4 +26,15 @@ model PageConfig {
   user       User     @relation(fields: [userId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  type      String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  payload   String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }
