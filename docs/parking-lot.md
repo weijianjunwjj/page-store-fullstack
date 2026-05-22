@@ -32,6 +32,9 @@
 
 - [2026-05-19] 评估 Prisma 7 升级
 
+- [2026-05-22] Prisma 6 → 7 升级评估(7.8.0 已发布,major version,先观望)
+- [2026-05-22] 迁移 package.json#prisma 到 prisma.config.ts(Prisma 7 强制)
+
 ## 已 review:不做
 
 - 
