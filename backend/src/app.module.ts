@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { HealthModule } from './health/health.module';
 import { LoggerModule } from 'nestjs-pino';
+import { PageConfigModule } from './page-config/page-config.module';
 
 @Module({
   imports: [
@@ -15,6 +16,8 @@ import { LoggerModule } from 'nestjs-pino';
             : undefined,
       },
     }),
+     // ...已有的 ConfigModule、PrismaModule、HealthModule
+    PageConfigModule,
     PrismaModule,
     HealthModule,
   ],

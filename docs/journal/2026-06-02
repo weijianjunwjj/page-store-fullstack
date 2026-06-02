@@ -1,0 +1,20 @@
+# 2026-06-02(周二)
+
+## 今天做了啥
+
+- 修复 W3 遗留:`AllExceptionsFilter` 的 import 路径从 `./common/interceptors/filters/` 改回 `./common/filters/`,物理文件同步移动
+- 装 `class-validator` + `class-transformer`
+- `main.ts` 开启全局 `ValidationPipe`(`transform: true` + `whitelist: true`)
+- 搭出 `src/page-config/` 模块骨架:controller / service / module / dto/
+- 写 3 个 DTO:query(分页契约,对齐 W1)、create、update(`PartialType`)
+- controller 写 5 个空壳路由(list / detail / create / update / delete),全部 `return null`,加 `@ApiTags('page-config')`
+- `PageConfigModule` 接进 `app.module`
+- `/api/docs` 验证:page-config 分组 5 个接口可见,query 参数和默认值正确显示
+
+## 明天做啥
+
+- 实现 list 接口:Prisma 查询 + 分页(page / pageSize)+ keyword 模糊搜索 + 排序
+
+## 有没有疑问
+
+- DTO 属性报 ts(2564),用明确赋值断言 `!` 解决,确认这是 DTO 的标准写法(运行时由 NestJS 填充,声明期无法初始化)
